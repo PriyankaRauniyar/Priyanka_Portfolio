@@ -494,7 +494,7 @@ def add_global_styles() -> None:
         }
         [class*="st-key-home_certificate_"].stVerticalBlock .stLinkButton { margin-top: auto; }
         .st-key-header_menu.stVerticalBlock {
-            position: fixed; top: 0; left: 3.5rem; right: 9rem;
+            position: fixed; top: .65rem; left: 3.5rem; right: 9rem;
             width: auto !important; max-width: calc(100vw - 12.5rem);
             z-index: 1001; background: var(--page); padding: .3rem .6rem;
             height: 3.5rem; box-sizing: border-box;
@@ -502,18 +502,18 @@ def add_global_styles() -> None:
         }
         .st-key-header_menu [data-testid="stHorizontalBlock"] {
             display: grid !important;
-            grid-template-columns: 1.15fr 1fr 1.55fr 1fr 1.15fr 1.1fr 1.35fr .85fr 1fr 1.4fr 1fr;
-            align-items: center; gap: .25rem;
-            min-width: 980px;
+            grid-template-columns: repeat(11, max-content);
+            justify-content: start; align-items: center; gap: .65rem;
+            width: max-content !important; min-width: 0;
         }
         .st-key-header_menu [data-testid="stColumn"] {
-            width: 100% !important; min-width: 0 !important; max-width: 100% !important;
+            width: auto !important; min-width: 0 !important; max-width: none !important;
         }
         .st-key-header_menu [data-testid="stPageLink-NavLink"],
         .st-key-header_menu [data-testid="stPopoverButton"] {
             display: flex; align-items: center; justify-content: center;
             width: 100%; height: 2.5rem; min-height: 2.5rem; box-sizing: border-box;
-            padding: .3rem .2rem; border: 1px solid transparent !important;
+            padding: .3rem .7rem; border: 1px solid transparent !important;
             border-radius: 999px; background: transparent !important;
             color: var(--ink) !important;
             transition: color .18s ease;
@@ -563,7 +563,8 @@ def add_global_styles() -> None:
             background: var(--surface-quiet); color: var(--ink) !important;
         }
         [data-testid="stSidebarCollapsedControl"] { z-index: 1004 !important; }
-        [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 5rem !important; }
+        [data-testid="stHeader"] { height: 4.5rem; }
+        [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 6rem !important; }
         @media (max-width: 1500px) {
             .st-key-header_menu.stVerticalBlock {
                 left: 3rem; right: 5rem; max-width: calc(100vw - 8rem); padding: .3rem;
