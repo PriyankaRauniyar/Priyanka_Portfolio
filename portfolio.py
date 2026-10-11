@@ -415,9 +415,9 @@ def add_global_styles() -> None:
         .st-key-home_content h3 { font-size: clamp(1.45rem, 2vw, 1.75rem) !important; line-height: 1.26 !important; }
         .st-key-home_hero h1 { font-size: clamp(2.4rem, 3.6vw, 3.4rem) !important; line-height: 1.08 !important; margin: .15rem 0 .45rem; }
         .st-key-home_hero h3 { font-size: clamp(1.4rem, 1.8vw, 1.7rem) !important; line-height: 1.28 !important; margin: .15rem 0 1rem; }
-        .st-key-home_hero .hero-intro { max-width: 68ch; margin: 0 0 1.35rem; }
+        .st-key-home_hero .hero-intro { max-width: 68ch; margin: 0 auto 1rem; }
         .st-key-home_hero .hero-intro p { margin: 0 0 .8rem; line-height: 1.55; text-align: justify; text-justify: inter-word; text-align-last: left; hyphens: auto; }
-        .st-key-home_profile_actions { max-width: 35rem; }
+        .st-key-home_profile_actions { max-width: 68ch; margin-inline: auto; }
         .st-key-home_content .home-section-label { color: var(--accent); font-size: 1.18rem !important; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin: 4.7rem 0 .55rem; padding-top: .8rem; border-top: 1px solid var(--line); }
         .pantry-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; margin: .9rem 0; }
         .pantry-metrics div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: .65rem .8rem; }
@@ -546,6 +546,9 @@ def add_global_styles() -> None:
         }
         .st-key-home_hero h1, .st-key-home_hero h3,
         .st-key-home_hero .eyebrow { text-align: center; }
+        .st-key-home_hero_copy.stVerticalBlock {
+            max-width: 68ch; margin-inline: auto; width: 100%;
+        }
         .st-key-home_hero .hero-intro p {
             text-align: justify; text-align-last: center;
             overflow-wrap: normal; word-break: normal;
@@ -564,7 +567,7 @@ def add_global_styles() -> None:
         }
         [data-testid="stSidebarCollapsedControl"] { z-index: 1004 !important; }
         [data-testid="stHeader"] { height: 4.5rem; }
-        [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 6rem !important; }
+        [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 5rem !important; }
         @media (max-width: 1500px) {
             .st-key-header_menu.stVerticalBlock {
                 left: 3rem; right: 5rem; max-width: calc(100vw - 8rem); padding: .3rem;

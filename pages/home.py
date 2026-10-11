@@ -40,7 +40,7 @@ with st.container(key="home_content"):
                     unsafe_allow_html=True,
                 )
                 st.markdown('<p class="portrait-note">Dallas, Texas · Business Analytics & AI</p>', unsafe_allow_html=True)
-        with copy:
+        with copy, st.container(key="home_hero_copy"):
             st.markdown('<p class="eyebrow">Healthcare analytics · Business intelligence · Research</p>', unsafe_allow_html=True)
             st.title("Priyanka Rauniyar")
             st.subheader("Turning complex data into decisions that matter..")
@@ -58,7 +58,6 @@ with st.container(key="home_content"):
                 profile_actions[0].link_button("GitHub", "https://github.com/PriyankaRauniyar", icon=":material/code:", use_container_width=True)
                 profile_actions[1].link_button("LinkedIn", "https://www.linkedin.com/in/priyanka-rauniyar/", icon=":material/business_center:", use_container_width=True)
                 profile_actions[2].link_button("Email", "mailto:priyanka.rauniyar@utdallas.edu", icon=":material/mail:", use_container_width=True)
-
     st.markdown('<p class="home-section-label">01 · Research Internship</p>', unsafe_allow_html=True)
     st.header("Summer research · Financial data analytics")
     research = portfolio["research_internships"][0]
