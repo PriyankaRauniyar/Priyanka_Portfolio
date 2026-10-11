@@ -533,7 +533,7 @@ def add_global_styles() -> None:
         }
         .st-key-header_menu p {
             font-weight: 700 !important;
-            font-size: clamp(.65rem, .85vw, .78rem) !important; white-space: nowrap !important;
+            font-size: clamp(.75rem, .95vw, .88rem) !important; white-space: nowrap !important;
             overflow-wrap: normal !important; word-break: normal !important;
             text-align: center; line-height: 1.2; margin: 0;
         }
