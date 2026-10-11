@@ -414,6 +414,14 @@ def add_global_styles() -> None:
         .st-key-home_content h2 { font-size: clamp(2rem, 3vw, 2.55rem) !important; line-height: 1.16 !important; }
         .st-key-home_content h3 { font-size: clamp(1.45rem, 2vw, 1.75rem) !important; line-height: 1.26 !important; }
         .st-key-home_hero h1 { font-size: clamp(2.4rem, 3.6vw, 3.4rem) !important; line-height: 1.08 !important; margin: .15rem 0 .45rem; }
+        .st-key-home_hero.stVerticalBlock { min-height: 34rem; }
+        .st-key-home_hero:not(:has(.st-key-home_profile_actions a[href^="mailto:"])) {
+            visibility: hidden;
+        }
+        .st-key-home_hero .portrait { height: auto; }
+        @media (max-width: 640px) {
+            .st-key-home_hero.stVerticalBlock { min-height: 58rem; }
+        }
         .st-key-home_hero h3 { font-size: clamp(1.4rem, 1.8vw, 1.7rem) !important; line-height: 1.28 !important; margin: .15rem 0 1rem; }
         .st-key-home_hero .hero-intro { max-width: 68ch; margin: 0 auto 1rem; }
         .st-key-home_hero .hero-intro p { margin: 0 0 .8rem; line-height: 1.55; text-align: justify; text-justify: inter-word; text-align-last: left; hyphens: auto; }
