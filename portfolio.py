@@ -501,7 +501,7 @@ def add_global_styles() -> None:
         }
         .st-key-header_menu [data-testid="stHorizontalBlock"] {
             display: grid !important;
-            grid-template-columns: 1.15fr repeat(8, minmax(0, 1fr)) 1.4fr 1fr;
+            grid-template-columns: 1.15fr 1fr 1.55fr 1fr 1.15fr 1.1fr 1.35fr .85fr 1fr 1.4fr 1fr;
             align-items: center; gap: .4rem;
         }
         .st-key-header_menu [data-testid="stColumn"] {
@@ -510,7 +510,7 @@ def add_global_styles() -> None:
         .st-key-header_menu [data-testid="stPageLink-NavLink"],
         .st-key-header_menu [data-testid="stPopoverButton"] {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; min-height: 2.6rem; box-sizing: border-box;
+            width: 100%; height: 2.8rem; min-height: 2.8rem; box-sizing: border-box;
             padding: .45rem .35rem; border: 1px solid var(--line) !important;
             border-radius: 8px; background: var(--surface) !important;
             color: var(--ink) !important;
@@ -534,7 +534,14 @@ def add_global_styles() -> None:
         .st-key-header_menu [data-testid="stColumn"]:last-child [data-testid="stPageLink-NavLink"]:hover {
             background: #b0e8c6 !important;
         }
-        .st-key-header_menu p { font-size: .82rem !important; white-space: normal; text-align: center; line-height: 1.2; }
+        .st-key-header_menu p {
+            font-size: .78rem !important; white-space: nowrap !important;
+            overflow-wrap: normal !important; word-break: normal !important;
+            text-align: center; line-height: 1.2; margin: 0;
+        }
+        .st-key-header_menu [data-testid="stPageLink-NavLink"] [data-testid="stIconMaterial"] {
+            display: none;
+        }
         [data-testid="stSidebar"] { z-index: 1003 !important; }
         [data-testid="stSidebarHeader"] { position: relative; z-index: 1004; }
         [data-testid="stSidebarCollapseButton"] {
@@ -546,7 +553,7 @@ def add_global_styles() -> None:
         }
         [data-testid="stSidebarCollapsedControl"] { z-index: 1004 !important; }
         [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 5rem !important; }
-        @media (max-width: 1200px) {
+        @media (max-width: 1500px) {
             .st-key-header_menu.stVerticalBlock {
                 left: 3rem; right: 3rem; max-width: calc(100vw - 6rem); padding: .4rem;
             }
@@ -557,6 +564,7 @@ def add_global_styles() -> None:
             [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 8rem !important; }
         }
         @media (max-width: 600px) {
+            .st-key-header_menu p { font-size: .7rem !important; }
             .st-key-header_menu [data-testid="stHorizontalBlock"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .st-key-header_menu [data-testid="stColumn"]:first-child { grid-column: 1 / -1; }
             [data-testid="stHeader"] { height: 13rem; }
