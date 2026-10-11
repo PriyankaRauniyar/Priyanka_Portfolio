@@ -541,6 +541,19 @@ def add_global_styles() -> None:
             overflow-wrap: normal !important; word-break: normal !important;
             text-align: center; line-height: 1.2; margin: 0;
         }
+        .st-key-header_menu [data-testid="stMarkdownContainer"] {
+            width: 100%; text-align: center;
+        }
+        .st-key-header_menu [data-testid="stPageLink-NavLink"] > div,
+        .st-key-header_menu [data-testid="stPopoverButton"] > div {
+            justify-content: center; align-items: center;
+        }
+        .st-key-home_hero h1, .st-key-home_hero h3,
+        .st-key-home_hero .eyebrow { text-align: center; }
+        .st-key-home_hero .hero-intro p {
+            text-align: justify; text-align-last: center;
+            overflow-wrap: normal; word-break: normal;
+        }
         .st-key-header_menu [data-testid="stPageLink-NavLink"] [data-testid="stIconMaterial"] {
             display: none;
         }
