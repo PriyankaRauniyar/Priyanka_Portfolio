@@ -574,12 +574,15 @@ def add_global_styles() -> None:
             background: var(--surface-quiet); color: var(--ink) !important;
         }
         [data-testid="stSidebarCollapsedControl"] { z-index: 1004 !important; }
+        [data-testid="stExpandSidebarButton"],
         [data-testid="stSidebarCollapsedControl"] button {
             position: relative;
         }
+        [data-testid="stExpandSidebarButton"] > *,
         [data-testid="stSidebarCollapsedControl"] button > * {
             visibility: hidden;
         }
+        [data-testid="stExpandSidebarButton"]::after,
         [data-testid="stSidebarCollapsedControl"] button::after {
             content: ""; position: absolute; left: 50%; top: 50%;
             width: 20px; height: 2px; background: var(--ink);
