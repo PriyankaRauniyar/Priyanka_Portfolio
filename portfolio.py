@@ -574,6 +574,18 @@ def add_global_styles() -> None:
             background: var(--surface-quiet); color: var(--ink) !important;
         }
         [data-testid="stSidebarCollapsedControl"] { z-index: 1004 !important; }
+        [data-testid="stSidebarCollapsedControl"] button {
+            position: relative;
+        }
+        [data-testid="stSidebarCollapsedControl"] button > * {
+            visibility: hidden;
+        }
+        [data-testid="stSidebarCollapsedControl"] button::after {
+            content: ""; position: absolute; left: 50%; top: 50%;
+            width: 20px; height: 2px; background: var(--ink);
+            box-shadow: 0 -6px 0 var(--ink), 0 6px 0 var(--ink);
+            transform: translate(-50%, -50%);
+        }
         [data-testid="stHeader"] { height: 4.5rem; }
         [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 5rem !important; }
         @media (max-width: 1500px) {

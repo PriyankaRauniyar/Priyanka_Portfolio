@@ -41,14 +41,6 @@ research_page = st.Page(
     url_path="project-bank-research",
 )
 
-with st.sidebar:
-    st.markdown("### Priyanka Rauniyar")
-    st.caption("Business Analytics & AI · Healthcare analytics · BI")
-    st.divider()
-    st.caption("Dallas, Texas")
-    st.link_button("Email Priyanka", "mailto:priyanka.rauniyar@utdallas.edu", use_container_width=True)
-    st.link_button("GitHub profile", "https://github.com/PriyankaRauniyar", use_container_width=True)
-
 navigation = st.navigation({"Portfolio": pages, "Research": [research_page], "Project details": project_pages}, position="hidden")
 
 with st.sidebar:
@@ -59,6 +51,9 @@ with st.sidebar:
         with st.expander("Project details"):
             for page in project_pages:
                 st.page_link(page, use_container_width=True)
+    st.divider()
+    st.link_button("Email Priyanka", "mailto:priyanka.rauniyar@utdallas.edu", use_container_width=True)
+    st.link_button("GitHub profile", "https://github.com/PriyankaRauniyar", use_container_width=True)
 
 # Native page links preserve the Streamlit session and respect deployment base paths.
 with st.container(key="header_menu"):
