@@ -513,28 +513,23 @@ def add_global_styles() -> None:
         .st-key-header_menu [data-testid="stPopoverButton"] {
             display: flex; align-items: center; justify-content: center;
             width: 100%; height: 2.5rem; min-height: 2.5rem; box-sizing: border-box;
-            padding: .3rem .2rem; border: 1px solid var(--line) !important;
-            border-radius: 8px; background: var(--surface) !important;
+            padding: .3rem .2rem; border: 1px solid transparent !important;
+            border-radius: 999px; background: transparent !important;
             color: var(--ink) !important;
-            transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+            transition: color .18s ease;
         }
         .st-key-header_menu [data-testid="stPageLink-NavLink"]:hover,
         .st-key-header_menu [data-testid="stPopoverButton"]:hover {
-            background: var(--surface-quiet) !important; border-color: var(--accent) !important;
-            box-shadow: 0 0 0 1px var(--accent);
+            color: var(--accent) !important; box-shadow: none;
         }
         .st-key-header_menu [data-testid="stPageLink-NavLink"]:focus-visible,
         .st-key-header_menu [data-testid="stPopoverButton"]:focus-visible {
             outline: 2px solid var(--accent); outline-offset: 2px;
         }
-        .st-key-header_menu [data-testid="stColumn"]:last-child [data-testid="stPageLink-NavLink"] {
-            background: var(--accent) !important; border-color: var(--accent) !important;
-        }
-        .st-key-header_menu [data-testid="stColumn"]:last-child [data-testid="stPageLink-NavLink"] * {
-            color: var(--accent-ink) !important; font-weight: 700;
-        }
-        .st-key-header_menu [data-testid="stColumn"]:last-child [data-testid="stPageLink-NavLink"]:hover {
-            background: #b0e8c6 !important;
+        .st-key-header_menu [class*="st-key-menu_selected_"] [data-testid="stPageLink-NavLink"],
+        .st-key-header_menu [class*="st-key-menu_selected_"] [data-testid="stPopoverButton"] {
+            background: #35463d !important;
+            color: var(--ink) !important;
         }
         .st-key-header_menu p {
             font-weight: 700 !important;

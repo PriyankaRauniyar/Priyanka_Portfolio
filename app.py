@@ -56,10 +56,16 @@ with st.container(key="header_menu"):
     menu = st.columns(11, gap="small")
     menu[0].markdown("**PR · Priyanka**")
     for column, page in zip(menu[1:9], [pages[0], research_page, *pages[1:7]]):
-        column.page_link(page, use_container_width=True)
-    with menu[9].popover("Project details", use_container_width=True):
-        for page in project_pages:
-            st.page_link(page, use_container_width=True)
-    menu[10].page_link(pages[7], use_container_width=True)
+        with column:
+            with st.container(key=f"menu_{'selected' if navigation.url_path == page.url_path else 'item'}_{page.url_path or 'home'}"):
+                st.page_link(page, use_container_width=True)
+    with menu[9]:
+        with st.container(key="menu_selected_details" if navigation in project_pages else "menu_item_details"):
+            with st.popover("Project details", use_container_width=True):
+                for page in project_pages:
+                    st.page_link(page, use_container_width=True)
+    with menu[10]:
+        with st.container(key="menu_selected_resume" if navigation.url_path == pages[7].url_path else "menu_item_resume"):
+            st.page_link(pages[7], use_container_width=True)
 
 navigation.run()
