@@ -9,7 +9,7 @@ st.markdown('<p class="eyebrow">Professional profile</p>', unsafe_allow_html=Tru
 st.title("Resume")
 st.write("Download my resume or open the PDF in your browser.")
 
-resume = ROOT / "PriyankaRauniyar_Resume.pdf"
+resume = ROOT / "static" / "PriyankaRauniyar_Resume.pdf"
 if resume.is_file():
     download, preview = st.columns(2)
     download.download_button(
