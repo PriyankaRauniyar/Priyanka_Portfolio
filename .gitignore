@@ -1,0 +1,29 @@
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Local configuration and secrets
+.env
+.env.*
+.streamlit/secrets.toml
+
+# Raw or private datasets and local analysis outputs
+data/raw/
+data/private/
+datasets/raw/
+outputs/
+*.sqlite
+*.db
+*.csv
+*.csv.gz
+*.xls
+*.xlsx
+*.parquet
+*.pkl
+*.joblib
+
+# macOS and editor files
+.DS_Store
+.vscode/

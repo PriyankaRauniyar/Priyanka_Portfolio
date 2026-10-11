@@ -1,0 +1,761 @@
+{
+  "projects": [
+    {
+      "id": "readmission",
+      "title": "Hospital Readmission Risk Dashboard",
+      "category": "Healthcare analytics",
+      "areas": [
+        "Healthcare Analytics",
+        "Machine Learning",
+        "Research"
+      ],
+      "featured": true,
+      "problem": "Explore retrospective readmission predictions and make model behavior, cohort performance, and limitations easier to inspect.",
+      "contribution": "Built a Streamlit research dashboard around frozen ensemble artifacts, a reduced held-out test export, and a separate precomputed historical prediction export.",
+      "methods": [
+        "Python",
+        "Streamlit",
+        "CatBoost",
+        "XGBoost",
+        "Calibration",
+        "Cohort analysis"
+      ],
+      "outcome": "The public dashboard reports frozen results for 19,802 held-out encounters and separately exposes 99,343 historical predictions for exploration.",
+      "links": [
+        {
+          "label": "Open live dashboard",
+          "url": "https://hospital-readmission-risk-dashboard-pr.streamlit.app/"
+        },
+        {
+          "label": "View source code",
+          "url": "https://github.com/PriyankaRauniyar/Hospital-readmission-risk-dashboard"
+        }
+      ],
+      "test_encounters": 19802,
+      "historical_predictions": 99343,
+      "metrics": [
+        {
+          "label": "Test accuracy",
+          "value": "52.43%",
+          "help": "Frozen result on the untouched 19,802-encounter test set."
+        },
+        {
+          "label": "Macro F1",
+          "value": "46.15%",
+          "help": "Frozen macro F1 on the untouched 19,802-encounter test set."
+        },
+        {
+          "label": "Within-30-day recall",
+          "value": "39.67%",
+          "help": "Frozen recall for the within-30-day readmission class on the untouched test set."
+        }
+      ],
+      "visual": {
+        "type": "confusion",
+        "classes": [
+          "No readmission",
+          "Within 30 days",
+          "After 30 days"
+        ],
+        "matrix": [
+          [
+            6433,
+            1522,
+            2541
+          ],
+          [
+            678,
+            879,
+            659
+          ],
+          [
+            2390,
+            1630,
+            3070
+          ]
+        ],
+        "caption": "Frozen, untouched test set only · 19,802 encounters. Rows are actual outcomes; columns are predicted outcomes. Cell percentages are within each actual class.",
+        "source": "Public benchmark.py CONFUSION constant in the dashboard repository"
+      },
+      "context": "A retrospective study of hospital readmission outcomes using the Diabetes 130-US Hospitals dataset covering 1999-2008.",
+      "data": "The frozen final-test export covers 19,802 encounters. A separate export contains 99,343 precomputed historical predictions, includes development records, and has no patient or encounter identifiers, actual outcomes, or source features. These two exports serve different purposes and must not be combined to calculate test performance.",
+      "approach": "The dashboard uses a frozen ensemble with 60% CatBoost and 40% XGBoost. Final class decisions use the highest uncalibrated ensemble probability; calibrated probabilities are shown separately as exploratory risk estimates.",
+      "validation": "The untouched final-test results are 52.43% accuracy, 46.15% macro F1, and 39.67% recall for readmission within 30 days. These are fixed study results, not metrics recalculated from the historical prediction export.",
+      "interpretation": "The dashboard surfaces class-level performance, cohort patterns, calibration, and prediction behavior so a reader can inspect trade-offs rather than relying on a single headline score.",
+      "limitations": "This is a retrospective research demonstration, not a clinically validated decision tool. The data has limited longitudinal context and class imbalance; early-readmission precision is modest. No prospective or external clinical validation was performed.",
+      "source": "Public repository README, dashboard documentation, and frozen benchmark.py CONFUSION constant",
+      "evidence": {
+        "VALIDATION_MODELS": [
+          {
+            "Model": "CatBoost + XGBoost (60/40)",
+            "Accuracy": 0.5258,
+            "Macro F1": 0.4642,
+            "Log loss": 0.9872,
+            "Within 30 recall": 0.3902
+          },
+          {
+            "Model": "XGBoost",
+            "Accuracy": 0.5217,
+            "Macro F1": 0.4596,
+            "Log loss": 0.9818,
+            "Within 30 recall": 0.3731
+          },
+          {
+            "Model": "CatBoost",
+            "Accuracy": 0.518,
+            "Macro F1": 0.4592,
+            "Log loss": 0.9977,
+            "Within 30 recall": 0.4047
+          },
+          {
+            "Model": "Embedding neural network",
+            "Accuracy": 0.4926,
+            "Macro F1": 0.4406,
+            "Log loss": 1.0071,
+            "Within 30 recall": 0.44
+          },
+          {
+            "Model": "Two-stage XGBoost",
+            "Accuracy": 0.5629,
+            "Macro F1": 0.4147,
+            "Log loss": 0.9186,
+            "Within 30 recall": 0.19
+          }
+        ],
+        "CALIBRATION": [
+          {
+            "Class": "No readmission",
+            "Observed": 0.53,
+            "Mean before": 0.3723,
+            "Mean after": 0.5374,
+            "Brier before": 0.2444,
+            "Brier after": 0.2187,
+            "ECE before": 0.1578,
+            "ECE after": 0.0093
+          },
+          {
+            "Class": "Within 30 days",
+            "Observed": 0.1119,
+            "Mean before": 0.2955,
+            "Mean after": 0.115,
+            "Brier before": 0.1305,
+            "Brier after": 0.0938,
+            "ECE before": 0.1836,
+            "ECE after": 0.0064
+          },
+          {
+            "Class": "After 30 days",
+            "Observed": 0.358,
+            "Mean before": 0.3323,
+            "Mean after": 0.3476,
+            "Brier before": 0.2161,
+            "Brier after": 0.212,
+            "ECE before": 0.0298,
+            "ECE after": 0.0116
+          }
+        ],
+        "FEATURE_IMPORTANCE": [
+          [
+            "discharge_disposition_id",
+            8.77
+          ],
+          [
+            "diag_1",
+            8.19
+          ],
+          [
+            "number_inpatient",
+            5.25
+          ],
+          [
+            "diag_2",
+            4.99
+          ],
+          [
+            "payer_code",
+            4.78
+          ],
+          [
+            "total_prior_visits",
+            4.75
+          ],
+          [
+            "diag_3",
+            4.07
+          ],
+          [
+            "medical_specialty",
+            4.02
+          ],
+          [
+            "diag_1_group",
+            3.63
+          ],
+          [
+            "age",
+            3.31
+          ],
+          [
+            "labs_per_day",
+            3.08
+          ],
+          [
+            "had_prior_inpatient_visit",
+            2.91
+          ],
+          [
+            "diag_3_group",
+            2.87
+          ],
+          [
+            "admission_source_id",
+            2.86
+          ],
+          [
+            "diag_2_group",
+            2.55
+          ],
+          [
+            "medications_per_day",
+            2.51
+          ],
+          [
+            "num_medications",
+            2.29
+          ],
+          [
+            "insulin",
+            2.14
+          ],
+          [
+            "admission_type_id",
+            2.1
+          ],
+          [
+            "num_lab_procedures",
+            2.1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "pantrypulse",
+      "title": "PantryPulse: Food Insecurity Analytics and Forecasting",
+      "category": "Social impact analytics",
+      "areas": [
+        "Business Intelligence",
+        "Machine Learning",
+        "Research"
+      ],
+      "featured": false,
+      "problem": "Food banks need a clear view of where food insecurity is greatest and how demand may change. PantryPulse brings county-level indicators, an eight-week outlook, and planning scenarios into one dashboard so teams can explore potential gaps before allocating resources.",
+      "contribution": "Developed the county-level analytics and interactive planning workflow, combining food-insecurity indicators, SNAP context, forecasts, and simulated operational capacity scenarios. The dashboard makes location-specific findings and assumptions visible for review.",
+      "methods": [
+        "Python",
+        "Streamlit",
+        "Forecasting",
+        "USDA SNAP",
+        "Feeding America data",
+        "FRED"
+      ],
+      "outcome": "The published tool presents an eight-week forecast across 3,142 U.S. counties and translates modeled gaps into planning quantities; operational visit history and capacity are simulated.",
+      "links": [
+        {
+          "label": "Open live dashboard",
+          "url": "https://pantrypulse-priyankarauniyar.streamlit.app/"
+        },
+        {
+          "label": "View source code",
+          "url": "https://github.com/PriyankaRauniyar/PantryPulse-Food-Insecurity-Analytics-and-Forecasting"
+        }
+      ],
+      "visual": {
+        "type": "demand_forecast",
+        "history": [
+          3749.0,
+          3329.0,
+          3581.0,
+          4062.0,
+          3767.0,
+          3953.0,
+          3905.0,
+          4352.0,
+          4363.0,
+          3685.0,
+          3991.0,
+          4510.0,
+          5000.0,
+          4763.0,
+          3761.0,
+          3491.0,
+          4022.0,
+          4212.0,
+          3828.0,
+          3952.0,
+          3973.0,
+          4630.0,
+          3759.0,
+          4175.0,
+          4486.0,
+          4939.0,
+          4154.0,
+          3974.0,
+          3833.0,
+          4584.0,
+          4281.0,
+          4127.0,
+          4333.0,
+          4687.0,
+          4519.0,
+          4829.0,
+          4361.0,
+          5303.0,
+          5588.0,
+          5417.0,
+          5386.0,
+          4891.0,
+          5920.0,
+          5358.0,
+          4923.0,
+          4668.0,
+          4399.0,
+          5029.0,
+          4426.0,
+          4225.0,
+          4662.0,
+          4718.0
+        ],
+        "forecast": [
+          4409.0,
+          4078.0,
+          4194.0,
+          4577.0,
+          4694.0,
+          4337.0,
+          4438.0,
+          4698.0
+        ],
+        "lower": [
+          4163.0,
+          3806.0,
+          3921.0,
+          4294.0,
+          4435.0,
+          4067.0,
+          4171.0,
+          4436.0
+        ],
+        "upper": [
+          4682.0,
+          4346.0,
+          4463.0,
+          4829.0,
+          4964.0,
+          4611.0,
+          4701.0,
+          4963.0
+        ],
+        "capacity": 5333.0,
+        "caption": "Dallas County · published forecast snapshot, September 2026. Original project exports: simulated weekly history and capacity; blue shows the eight-week Prophet forecast and its likely range. Alerts use the high end of the range. These are prototype results, not observed food-bank demand.",
+        "history_start": "2025-09-29",
+        "forecast_start": "2026-09-28"
+      },
+      "context": "An early-warning and planning concept for food banks, built for ImpactHacks 2026.",
+      "data": "Published documentation identifies Feeding America Map the Meal Gap data, USDA SNAP tables, and FRED economic series as inputs. Weekly visit history and current capacity are simulated because food-bank visit records are private.",
+      "approach": "The Python workflow generates an eight-week county-level household forecast, compares modeled need with volunteer and food capacity, and translates gaps into operational quantities. The dashboard also supports transfer scenarios and human-reviewed action plans.",
+      "validation": "The repository describes an operational prototype. Since visit history and capacity are simulated, its forecast behavior is not evidence of measured real-world accuracy.",
+      "interpretation": "The concept connects external need and economic indicators to planning questions such as where capacity may fall short and what resources could be needed.",
+      "limitations": "Operational visit history and current capacity are simulated, and any generated plans require human review. Results should not be presented as observed food-bank demand or validated impact.",
+      "source": "Public repository README and data/limitations documentation",
+      "evidence": {
+        "backtest": [
+          {
+            "Method": "county model",
+            "Counties": 13,
+            "Prophet MAPE (%)": 3.79,
+            "4-week baseline MAPE (%)": 11.0,
+            "Range coverage (%)": 76.92
+          },
+          {
+            "Method": "state model, top-down",
+            "Counties": 3129,
+            "Prophet MAPE (%)": 4.97,
+            "4-week baseline MAPE (%)": 11.37,
+            "Range coverage (%)": 88.06
+          }
+        ],
+        "forecast": [
+          {
+            "Week": "2026-09-28",
+            "Forecast households": 4409,
+            "Lower": 4163,
+            "Upper": 4682,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-10-05",
+            "Forecast households": 4078,
+            "Lower": 3806,
+            "Upper": 4346,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-10-12",
+            "Forecast households": 4194,
+            "Lower": 3921,
+            "Upper": 4463,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-10-19",
+            "Forecast households": 4577,
+            "Lower": 4294,
+            "Upper": 4829,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-10-26",
+            "Forecast households": 4694,
+            "Lower": 4435,
+            "Upper": 4964,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-11-02",
+            "Forecast households": 4337,
+            "Lower": 4067,
+            "Upper": 4611,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-11-09",
+            "Forecast households": 4438,
+            "Lower": 4171,
+            "Upper": 4701,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          },
+          {
+            "Week": "2026-11-16",
+            "Forecast households": 4698,
+            "Lower": 4436,
+            "Upper": 4963,
+            "Capacity": 5333,
+            "Status": "GREEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "health-risk",
+      "title": "Health Risk Classification",
+      "category": "Predictive modeling",
+      "areas": [
+        "Healthcare Analytics",
+        "Machine Learning",
+        "Research"
+      ],
+      "featured": false,
+      "problem": "Compare interpretable models for classifying low versus high health risk from demographic and lifestyle factors.",
+      "contribution": "Developed data preparation, exploratory analysis, logistic regression, decision-tree modeling, and test-set evaluation in R.",
+      "methods": [
+        "R",
+        "Logistic regression",
+        "Decision tree",
+        "Feature engineering",
+        "Confusion matrix"
+      ],
+      "outcome": "The repository README reports test accuracy of 87.4% for logistic regression and 97.4% for the decision tree.",
+      "links": [
+        {
+          "label": "View source code",
+          "url": "https://github.com/PriyankaRauniyar/Predictive-Modeling-For-Health-risk-classification"
+        },
+        {
+          "label": "View figures",
+          "url": "https://github.com/PriyankaRauniyar/Predictive-Modeling-For-Health-risk-classification/tree/main/figures"
+        }
+      ],
+      "visual": {
+        "type": "accuracy_comparison",
+        "title": "Test accuracy reported in the public repository README",
+        "metrics": [
+          {
+            "label": "Logistic regression",
+            "value": "87.4%",
+            "ratio": 0.874
+          },
+          {
+            "label": "Decision tree",
+            "value": "97.4%",
+            "ratio": 0.974
+          }
+        ],
+        "url": "https://raw.githubusercontent.com/PriyankaRauniyar/Predictive-Modeling-For-Health-risk-classification/main/figures/decision_tree.png",
+        "caption": "Decision-tree visualization from the public R project repository.",
+        "plots": [
+          {
+            "file": "decision_tree.png",
+            "title": "Decision tree",
+            "caption": "Decision-tree visualization from the original R project."
+          },
+          {
+            "file": "scurve_age.png",
+            "title": "Age vs health risk",
+            "caption": "Age and predicted health-risk probability."
+          },
+          {
+            "file": "scurve_bmi.png",
+            "title": "BMI vs health risk",
+            "caption": "BMI and predicted health-risk probability."
+          },
+          {
+            "file": "scurve_sleep.png",
+            "title": "Sleep duration vs health risk",
+            "caption": "Sleep duration and predicted health-risk probability."
+          },
+          {
+            "file": "Predicted_Probabilities_histogram.png",
+            "title": "Predicted probability distribution",
+            "caption": "Distribution of model-predicted probabilities."
+          },
+          {
+            "file": "Model_Accuracy.png",
+            "title": "Logistic regression evaluation",
+            "caption": "Original logistic-regression training and testing confusion matrices and reported metrics."
+          },
+          {
+            "file": "Model_Acc.png",
+            "title": "Decision tree evaluation",
+            "caption": "Original decision-tree training and testing confusion matrices and reported metrics."
+          },
+          {
+            "file": "Plot_on_Training.png",
+            "title": "Training class distribution",
+            "caption": "Class-distribution figure for the training set."
+          },
+          {
+            "file": "Plot_on_Testing.png",
+            "title": "Testing predicted class distribution",
+            "caption": "Distribution of predicted classes on the testing set."
+          },
+          {
+            "file": "overview.png",
+            "title": "Study overview",
+            "caption": "Demographic and lifestyle factors considered in the study."
+          }
+        ]
+      },
+      "context": "A comparison of interpretable predictive approaches for low- versus high-health-risk classification.",
+      "data": "The repository describes demographic and lifestyle factors including age, BMI, sleep, exercise, smoking, alcohol use, and sugar intake.",
+      "approach": "Prepared features and compared logistic regression with a rule-based decision tree; exploratory plots and model visualizations are included in the public repository.",
+      "validation": "The repository README reports test accuracy of 87.4% for logistic regression and 97.4% for the decision tree, alongside confusion-matrix, sensitivity, specificity, and error analyses.",
+      "interpretation": "The documented comparison favors the decision tree on the reported test accuracy and provides interpretable decision rules, while logistic regression supports probabilistic interpretation.",
+      "limitations": "The repository does not establish external validation or clinical utility. Accuracy alone does not describe class-specific errors or whether a model is suitable for screening.",
+      "source": "Public repository README"
+    },
+    {
+      "id": "learning-platform",
+      "title": "Online Learning Platform Database",
+      "category": "SQL and data systems",
+      "areas": [
+        "SQL / Data Engineering",
+        "Business Intelligence"
+      ],
+      "featured": false,
+      "problem": "Represent core learning-platform workflows in a relational schema that supports integrity and repeatable reporting.",
+      "contribution": "Designed a MySQL database for courses, enrollment, progress, assessments, grading, and certification workflows.",
+      "methods": [
+        "MySQL",
+        "Relational modeling",
+        "Stored procedures",
+        "Triggers",
+        "SQL reporting"
+      ],
+      "outcome": "The public repository includes a complete SQL implementation and ER diagram, with automation and reporting examples.",
+      "links": [
+        {
+          "label": "View SQL schema",
+          "url": "https://github.com/PriyankaRauniyar/Online_Learning_Platform_Database_MySQL/blob/main/sql/Online_Learning_Platform.sql"
+        },
+        {
+          "label": "View ER diagram",
+          "url": "https://github.com/PriyankaRauniyar/Online_Learning_Platform_Database_MySQL/blob/main/docs/ER_Diagram.png"
+        },
+        {
+          "label": "View repository",
+          "url": "https://github.com/PriyankaRauniyar/Online_Learning_Platform_Database_MySQL"
+        }
+      ],
+      "visual": {
+        "type": "image",
+        "url": "https://raw.githubusercontent.com/PriyankaRauniyar/Online_Learning_Platform_Database_MySQL/main/docs/ER_Diagram.png",
+        "caption": "Published entity-relationship diagram for the learning platform database.",
+        "local_file": "static/learning-platform/ER_Diagram.png"
+      },
+      "context": "A database foundations project focused on relational design, integrity constraints, and SQL workflow automation.",
+      "data": "The repository models platform entities and relationships for learners, courses, enrollment, progress, assessments, and certification; it does not describe a production learner dataset.",
+      "approach": "Implemented a relational schema with triggers, stored procedures, user-defined functions, transaction control, and complex reporting queries.",
+      "validation": "The public artifact is a runnable SQL implementation with a documented ER diagram. No production deployment or quantified operational result is claimed.",
+      "interpretation": "The project demonstrates how relational constraints and database-side logic can support consistent platform operations and analytics queries.",
+      "limitations": "This is a database design project, not evidence of a deployed learning platform or measured learner outcomes.",
+      "source": "Public repository README and SQL artifacts",
+      "evidence": {
+        "schema": [
+          {
+            "Table": "users",
+            "Primary key": "user_id",
+            "Relationships": "role_id → roles.role_id"
+          },
+          {
+            "Table": "courses",
+            "Primary key": "course_id",
+            "Relationships": "category_id → course_categories.category_id; created_by → users.user_id"
+          },
+          {
+            "Table": "enrollments",
+            "Primary key": "enrollment_id",
+            "Relationships": "user_id → users.user_id; course_id → courses.course_id"
+          },
+          {
+            "Table": "grades",
+            "Primary key": "grade_id",
+            "Relationships": "user_id → users.user_id; course_id → courses.course_id; module_id → modules.module_id; project_id → projects.project_id"
+          },
+          {
+            "Table": "payments",
+            "Primary key": "payment_id",
+            "Relationships": "user_id → users.user_id; course_id → courses.course_id"
+          },
+          {
+            "Table": "certificates",
+            "Primary key": "certificate_id",
+            "Relationships": "user_id → users.user_id; course_id → courses.course_id"
+          }
+        ]
+      }
+    },
+    {
+      "id": "emergency-room",
+      "title": "Emergency Room Database System",
+      "category": "Healthcare data systems",
+      "areas": [
+        "Healthcare Analytics",
+        "SQL / Data Engineering"
+      ],
+      "featured": false,
+      "problem": "Model emergency-room entities and workflows, including admissions, triage, staff shifts, beds, and medication administration.",
+      "contribution": "Designed and implemented a MySQL relational schema with relationships and integrity constraints for the documented case study.",
+      "methods": [
+        "MySQL",
+        "ER modeling",
+        "Normalization",
+        "Primary and foreign keys"
+      ],
+      "outcome": "The repository provides the SQL implementation, ER diagram, and case-study documentation for the modeled workflows.",
+      "links": [
+        {
+          "label": "View SQL schema",
+          "url": "https://github.com/PriyankaRauniyar/EmergencyRoom-Database-MySQL/blob/main/sql/EmergencyRoom.sql"
+        },
+        {
+          "label": "View ER diagram",
+          "url": "https://github.com/PriyankaRauniyar/EmergencyRoom-Database-MySQL/blob/main/docs/ER_Diagram.png"
+        },
+        {
+          "label": "View repository",
+          "url": "https://github.com/PriyankaRauniyar/EmergencyRoom-Database-MySQL"
+        }
+      ],
+      "visual": {
+        "type": "image",
+        "url": "https://raw.githubusercontent.com/PriyankaRauniyar/EmergencyRoom-Database-MySQL/main/docs/ER_Diagram.png",
+        "caption": "Published entity-relationship diagram for the emergency-room database case study.",
+        "local_file": "static/emergency-room/ER_Diagram.png"
+      },
+      "context": "A database course case study modeling emergency-room operations and care workflows.",
+      "data": "The schema represents patients and healthcare workers, admissions, treatments, medication, beds, and shift-based assignments; no real patient dataset is used in the published case study.",
+      "approach": "Created a normalized relational design with role-aware entities, staff assignments, triage relationships, bed supervision, medication tracking, and referential integrity.",
+      "validation": "The public repository contains the MySQL implementation and ER diagram. No production deployment or quantified operational result is claimed.",
+      "interpretation": "The model shows how explicit relationships and constraints can represent operational workflows and support consistent downstream reporting.",
+      "limitations": "This is a schema-design case study, not a clinical application or a deployment using real patient records.",
+      "source": "Public repository README, SQL schema, and case study",
+      "evidence": {
+        "schema": [
+          {
+            "Table": "PatientAdmission",
+            "Primary key": "AdmissionID",
+            "Relationships": "PatientID → Patient.PatientID; ShiftID → Shift.ShiftID; ReceptionistID → Worker.WorkerID; TriageDoctorID → Worker.WorkerID"
+          },
+          {
+            "Table": "WorkerShift",
+            "Primary key": "WorkerID, ShiftID",
+            "Relationships": "WorkerID → Worker.WorkerID; ShiftID → Shift.ShiftID"
+          },
+          {
+            "Table": "BedSupervision",
+            "Primary key": "BedID, ShiftID",
+            "Relationships": "BedID → Bed.BedID; NurseID → Worker.WorkerID; ShiftID → Shift.ShiftID"
+          },
+          {
+            "Table": "BedAssignment",
+            "Primary key": "BedID, PatientID, AssignedTime",
+            "Relationships": "BedID → Bed.BedID; PatientID → Patient.PatientID"
+          },
+          {
+            "Table": "MedicationPrescription",
+            "Primary key": "PrescriptionID",
+            "Relationships": "PatientID → Patient.PatientID; MedicationID → Medication.MedicationID; DoctorID → Worker.WorkerID"
+          },
+          {
+            "Table": "MedicationAdministration",
+            "Primary key": "PrescriptionID, ShiftID",
+            "Relationships": "PrescriptionID → MedicationPrescription.PrescriptionID; NurseID → Worker.WorkerID; ShiftID → Shift.ShiftID"
+          }
+        ]
+      }
+    }
+  ],
+  "research_internships": [
+    {
+      "id": "bank-research",
+      "title": "Large-Scale Bank Entity Resolution & Employee Expertise Research",
+      "category": "Research project · Financial data analytics",
+      "areas": [
+        "Research",
+        "Financial data analytics"
+      ],
+      "featured": false,
+      "status": "",
+      "problem": "Developed a reproducible institution-matching and data-validation workflow supporting research into how employees’ prior industry experience relates to bank lending decisions and performance.",
+      "contribution": "Linked employment-source bank identities to FDIC identifiers using historical names, geography, employment timelines, matching rules, QA, and manual verification.",
+      "methods": [
+        "Python",
+        "Entity resolution",
+        "Data integration",
+        "Data quality",
+        "Financial research"
+      ],
+      "outcome": "69.8M+ broader source employment records · 5,156 accepted RCID mappings · 0 duplicate RCIDs in the final bridge.",
+      "links": [],
+      "visual": {
+        "type": "bank_summary",
+        "caption": "The 69.8M+ figure describes the broader employment source, not 69.8M matched banks or validated mappings."
+      },
+      "context": "The research asks whether employees’ prior industry-specific work experience relates to banks’ lending behavior and performance across loan categories. The completed phase produced the bank identity linkage required before employee-level and lending analysis.",
+      "data": "LinkedIn/BankFirm employment-source records, FDIC institution histories, and FDIC Summary of Deposits geographic evidence. The broader source contains more than 69.8 million employment records; this phase focused on institution identifiers.",
+      "approach": "Standardized institution names, generated candidates, compared historical identities, geography, and employment timelines, then applied QA and manual verification to ambiguous relationships.",
+      "validation": "The final accepted bridge contains 5,156 unique RCIDs and no duplicate RCIDs. It includes 12 professor-approved additions beyond the preceding 5,144-record version.",
+      "interpretation": "The accepted bridge is a validated data-integration output supporting future employment-history linkage and expertise measures; it is not a finding about lending outcomes.",
+      "limitations": "Employee-level merging, construction of expertise measures, and analysis of lending outcomes were not completed in this phase. The portfolio presents aggregate metrics and methods only.",
+      "source": "Aggregate research summary provided for portfolio review; source records, mappings, and restricted code are excluded",
+      "phase": "Completed institution-matching phase · Summer 2026"
+    }
+  ]
+}
