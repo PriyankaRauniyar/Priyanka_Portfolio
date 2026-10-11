@@ -632,10 +632,22 @@ def add_global_styles() -> None:
             [class*="st-key-skills_"], [class*="st-key-leadership_"]
         ).stVerticalBlock { transition: none; }
         }
-        /* Keep the confusion matrix view free of card outlines. */
+        /* Use the same borderless visual panels across these projects. */
+        .st-key-visual_bank-research.stVerticalBlock,
+        .st-key-visual_bank-research.stVerticalBlock:hover,
+        .st-key-visual_bank-research.stVerticalBlock:focus-within,
+        .st-key-visual_pantrypulse.stVerticalBlock,
+        .st-key-visual_pantrypulse.stVerticalBlock:hover,
+        .st-key-visual_pantrypulse.stVerticalBlock:focus-within,
         .st-key-visual_readmission.stVerticalBlock,
         .st-key-visual_readmission.stVerticalBlock:hover,
         .st-key-visual_readmission.stVerticalBlock:focus-within {
+            border: none;
+            box-shadow: none;
+        }
+        .st-key-visual_bank-research .bank-metric,
+        .st-key-visual_bank-research .bank-flow-step,
+        .st-key-visual_pantrypulse .pantry-metrics div {
             border: none;
             box-shadow: none;
         }
