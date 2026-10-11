@@ -1,5 +1,6 @@
 """Executive home page with the complete portfolio overview."""
 
+import base64
 from contextlib import nullcontext
 from html import escape
 
@@ -14,12 +15,13 @@ project_by_id = {project["id"]: project for project in projects}
 portrait_path = ROOT / "static" / "portrait.jpg"
 background_path = ROOT / "static" / "hero-background.jpg"
 if background_path.is_file():
+    background_data = base64.b64encode(background_path.read_bytes()).decode("ascii")
     st.markdown(
         '<style>'
         '.st-key-home_hero.stVerticalBlock {'
         'background-color: #203f34;'
         'background-image: linear-gradient(110deg, rgba(16, 35, 28, .86), rgba(16, 35, 28, .80)), '
-        'url("/app/static/hero-background.jpg");'
+        f'url("data:image/jpeg;base64,{background_data}");'
         'background-size: cover; background-position: center; background-repeat: no-repeat;'
         'background-clip: padding-box;'
         '}'
@@ -32,8 +34,9 @@ with st.container(key="home_content"):
         portrait, copy = st.columns([.7, 1.7], gap="large", vertical_alignment="center")
         with portrait:
             if portrait_path.is_file():
+                portrait_data = base64.b64encode(portrait_path.read_bytes()).decode("ascii")
                 st.markdown(
-                    '<img class="portrait" src="/app/static/portrait.jpg" width="640" height="800" fetchpriority="high" alt="Portrait of Priyanka Rauniyar">',
+                    f'<img class="portrait" src="data:image/jpeg;base64,{portrait_data}" width="640" height="800" fetchpriority="high" alt="Portrait of Priyanka Rauniyar">',
                     unsafe_allow_html=True,
                 )
                 st.markdown('<p class="portrait-note">Dallas, Texas · Business Analytics & AI</p>', unsafe_allow_html=True)
