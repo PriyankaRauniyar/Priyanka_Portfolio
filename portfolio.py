@@ -497,12 +497,14 @@ def add_global_styles() -> None:
             position: fixed; top: 0; left: 3.5rem; right: 9rem;
             width: auto !important; max-width: calc(100vw - 12.5rem);
             z-index: 1001; background: var(--page); padding: .3rem .6rem;
-            min-height: 3.5rem; box-sizing: border-box;
+            height: 3.5rem; box-sizing: border-box;
+            overflow-x: auto; overflow-y: hidden;
         }
         .st-key-header_menu [data-testid="stHorizontalBlock"] {
             display: grid !important;
             grid-template-columns: 1.15fr 1fr 1.55fr 1fr 1.15fr 1.1fr 1.35fr .85fr 1fr 1.4fr 1fr;
-            align-items: center; gap: .4rem;
+            align-items: center; gap: .25rem;
+            min-width: 980px;
         }
         .st-key-header_menu [data-testid="stColumn"] {
             width: 100% !important; min-width: 0 !important; max-width: 100% !important;
@@ -510,8 +512,8 @@ def add_global_styles() -> None:
         .st-key-header_menu [data-testid="stPageLink-NavLink"],
         .st-key-header_menu [data-testid="stPopoverButton"] {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; height: 2.8rem; min-height: 2.8rem; box-sizing: border-box;
-            padding: .45rem .35rem; border: 1px solid var(--line) !important;
+            width: 100%; height: 2.5rem; min-height: 2.5rem; box-sizing: border-box;
+            padding: .3rem .2rem; border: 1px solid var(--line) !important;
             border-radius: 8px; background: var(--surface) !important;
             color: var(--ink) !important;
             transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
@@ -535,7 +537,7 @@ def add_global_styles() -> None:
             background: #b0e8c6 !important;
         }
         .st-key-header_menu p {
-            font-size: .78rem !important; white-space: nowrap !important;
+            font-size: clamp(.65rem, .85vw, .78rem) !important; white-space: nowrap !important;
             overflow-wrap: normal !important; word-break: normal !important;
             text-align: center; line-height: 1.2; margin: 0;
         }
@@ -555,20 +557,11 @@ def add_global_styles() -> None:
         [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 5rem !important; }
         @media (max-width: 1500px) {
             .st-key-header_menu.stVerticalBlock {
-                left: 3rem; right: 3rem; max-width: calc(100vw - 6rem); padding: .4rem;
+                left: 3rem; right: 5rem; max-width: calc(100vw - 8rem); padding: .3rem;
             }
-            [data-testid="stHeader"] { height: 6.5rem; }
-            .st-key-header_menu [data-testid="stHorizontalBlock"] {
-                grid-template-columns: repeat(6, minmax(0, 1fr));
-            }
-            [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 8rem !important; }
         }
         @media (max-width: 600px) {
-            .st-key-header_menu p { font-size: .7rem !important; }
-            .st-key-header_menu [data-testid="stHorizontalBlock"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-            .st-key-header_menu [data-testid="stColumn"]:first-child { grid-column: 1 / -1; }
-            [data-testid="stHeader"] { height: 13rem; }
-            [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 14rem !important; }
+            .st-key-header_menu.stVerticalBlock { right: 3rem; max-width: calc(100vw - 6rem); }
         }
         @media (prefers-reduced-motion: reduce) {
             .st-key-header_menu a, .st-key-header_menu button { transition: none !important; }
