@@ -51,6 +51,15 @@ with st.sidebar:
 
 navigation = st.navigation({"Portfolio": pages, "Research": [research_page], "Project details": project_pages}, position="hidden")
 
+with st.sidebar:
+    with st.container(key="mobile_menu"):
+        st.markdown("### Menu")
+        for page in [pages[0], research_page, *pages[1:]]:
+            st.page_link(page, use_container_width=True)
+        with st.expander("Project details"):
+            for page in project_pages:
+                st.page_link(page, use_container_width=True)
+
 # Native page links preserve the Streamlit session and respect deployment base paths.
 with st.container(key="header_menu"):
     menu = st.columns(11, gap="small")

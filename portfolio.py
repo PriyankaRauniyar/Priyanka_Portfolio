@@ -581,8 +581,15 @@ def add_global_styles() -> None:
                 left: 3rem; right: 5rem; max-width: calc(100vw - 8rem); padding: .3rem;
             }
         }
-        @media (max-width: 600px) {
-            .st-key-header_menu.stVerticalBlock { right: 3rem; max-width: calc(100vw - 6rem); }
+        .st-key-mobile_menu { display: none; }
+        @media (max-width: 768px) {
+            .st-key-header_menu.stVerticalBlock { display: none !important; }
+            .st-key-mobile_menu { display: flex; }
+            .st-key-mobile_menu [data-testid="stPageLink-NavLink"] {
+                min-height: 2.75rem;
+            }
+            [data-testid="stHeader"] { height: 3.5rem; }
+            [data-testid="stMainBlockContainer"], .main .block-container { padding-top: 4rem !important; }
         }
         @media (prefers-reduced-motion: reduce) {
             .st-key-header_menu a, .st-key-header_menu button { transition: none !important; }
